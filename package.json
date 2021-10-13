@@ -4,7 +4,20 @@
   "description": "The next generation Content Management System",
   "main": "server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "webpack:clean": "rm dist/bundle.js",
+    "webpack:build-dev": "webpack --mode development",
+    "webpack:build-prod": "webpack --mode production",
+    "webpack:watch": "webpack --watch",
+    "webpack:start": "webpack serve",
+    "express:dev-start": "npm run webpack:build-dev && npm run express:only-start",
+    "express:prod-start": "npm run webpack:build-prod && npm run express:only-start",
+    "express:only-start": "node server/index.js",
+    "express:live-start": "concurrently \"npm run webpack:watch\" \"npm run express:only-start\"",
+    "eslint:lint": "eslint . --ext .ts,.tsx",
+    "prettier:check": "prettier --check src",
+    "prettier:write": "prettier --write src",
+    "npm:deploy": "npm publish",
+    "nodemon:start": "nodemon --config nodemon.json"
   },
   "repository": {
     "type": "git",

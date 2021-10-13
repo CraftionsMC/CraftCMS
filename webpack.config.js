@@ -101,11 +101,11 @@ const config = {
                     name: "robots",
                     content: "INDEX,FOLLOW"
                 },
-                description: "Der offizielle Editor für die InCode Programmiersprache von Ben Siebert und Lukas Birke.",
-                keywords: "InCode, Editor, IDE, Ben Siebert, Lukas Birke",
-                author: "The InCode Developers",
-                publisher: "The InCode Developers",
-                copyright: "Copyright © 2021 The InCode Developers.",
+                description: "CraftCMS, The next generation Content Management System",
+                keywords: "Craftions",
+                author: "The Craftions Developers",
+                publisher: "The Craftions Developers",
+                copyright: "Copyright © 2021 The Craftions Developers.",
                 expires: "",
                 "revisit-after": "2 days"
             }
