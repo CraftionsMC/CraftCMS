@@ -14,8 +14,7 @@ if (!fs.existsSync(path.join(os.homedir(), ".craftcms"))) {
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { accountServer } = require("@incodelang/accounts");
-const { login } = require("@incodelang/accounts/types/lib/module/users");
+const { accountServer, users } = require("@incodelang/accounts");
 const { getRole, setRole } = require("./lib/module/roles");
 
 const app = express();
@@ -37,7 +36,7 @@ app.post("/api/v1/user/users/role/set", (req, res) => {
     req.body.name &&
     req.body.role
   ) {
-    if (login(req.body.username, req.body.password)) {
+    if (users.login(req.body.username, req.body.password)) {
       if (getRole(req.body.username) === "admin" && req.body.name !== "admin") {
         setRole(req.body.name, req.body.role);
         res.end('{"error": false, "message": "Role set."}');
@@ -45,7 +44,7 @@ app.post("/api/v1/user/users/role/set", (req, res) => {
         res.end('{"error": true, "message": "Access Denied."}');
       }
     } else {
-      return JSON.stringify(login(req.body.username, req.body.password));
+      return JSON.stringify(users.login(req.body.username, req.body.password));
     }
   } else {
     res.end('{"error": true, "message": "Invalid Request Body."}');
@@ -54,7 +53,7 @@ app.post("/api/v1/user/users/role/set", (req, res) => {
 
 app.post("/api/v1/user/users/role/get", (req, res) => {
   if (req.body.username && req.body.password && req.body.name) {
-    if (login(req.body.username, req.body.password)) {
+    if (users.login(req.body.username, req.body.password)) {
       if (getRole(req.body.username) === "admin") {
         res.end(
           '{"error": false, "message": "' + getRole(req.body.name) + '"}'
@@ -63,7 +62,7 @@ app.post("/api/v1/user/users/role/get", (req, res) => {
         res.end('{"error": true, "message": "Access Denied."}');
       }
     } else {
-      return JSON.stringify(login(req.body.username, req.body.password));
+      return JSON.stringify(users.login(req.body.username, req.body.password));
     }
   } else {
     res.end('{"error": true, "message": "Invalid Request Body."}');
