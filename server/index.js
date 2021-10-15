@@ -38,7 +38,7 @@ app.post("/api/v1/user/users/role/set", (req, res) => {
     req.body.role
   ) {
     if (login(req.body.username, req.body.password)) {
-      if (getRole(req.body.username) === "admin") {
+      if (getRole(req.body.username) === "admin" && req.body.name !== "admin") {
         setRole(req.body.name, req.body.role);
         res.end('{"error": false, "message": "Role set."}');
       } else {
@@ -51,6 +51,7 @@ app.post("/api/v1/user/users/role/set", (req, res) => {
     res.end('{"error": true, "message": "Invalid Request Body."}');
   }
 });
+
 app.post("/api/v1/user/users/role/get", (req, res) => {
   if (req.body.username && req.body.password && req.body.name) {
     if (login(req.body.username, req.body.password)) {
