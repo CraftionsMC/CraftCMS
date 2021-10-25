@@ -1,0 +1,21 @@
+.fontchange {
+  background-color: #fff;
+  border-color: #dbdbdb;
+  border-width: 1px;
+  color: #363636;
+  cursor: pointer;
+  justify-content: center;
+
+  text-align: center;
+  white-space: nowrap;
+  margin-left: 5px;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+.verticalLine-left {
+  border-left: thin solid rgb(215, 215, 215);
+}
+.verticalLine-right {
+  border-right: thin solid rgb(215, 215, 215);
+}
