@@ -48,7 +48,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "header {\n  justify-content: space-between;\n  align-items: center;\n  padding: 60px 60px;\n  background: #e9e6e6; }\n\nbody {\n  background-color: #363636;\n  height: auto;\n  width: auto;\n  z-index: auto; }\n\n.main-div {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  background-color: #d7d7d7; }\n\n.tabs {\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n.tabs.is-small {\n  font-size: 1rem !important; }\n\n.fontchange {\n  background-color: #fff;\n  border-color: #dbdbdb;\n  border-width: 1px;\n  color: #363636;\n  cursor: pointer;\n  justify-content: center;\n  text-align: center;\n  white-space: nowrap;\n  margin-left: 5px;\n  padding-left: 10px !important;\n  padding-right: 10px !important; }\n\n.verticalLine-left {\n  border-left: thin solid #d7d7d7; }\n\n.verticalLine-right {\n  border-right: thin solid #d7d7d7; }\n\n.fonts {\n  display: flex; }\n\n.Calibri {\n  font-family: Calibri !important; }\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "header {\n  justify-content: space-between;\n  align-items: center;\n  padding: 60px 60px;\n  background: #e9e6e6; }\n\nbody {\n  background-color: #363636;\n  height: auto;\n  width: auto;\n  z-index: auto; }\n\n.main-div {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  background-color: #d7d7d7; }\n\n.page-div {\n  overflow-y: scroll; }\n\n.tabs {\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n.tabs.is-small {\n  font-size: 1rem !important; }\n\n.fontchange {\n  background-color: #fff;\n  border-color: #dbdbdb;\n  border-width: 1px;\n  color: #363636;\n  cursor: pointer;\n  justify-content: center;\n  text-align: center;\n  white-space: nowrap;\n  margin-left: 5px;\n  padding-left: 10px !important;\n  padding-right: 10px !important; }\n\n.verticalLine-left {\n  border-left: thin solid #d7d7d7; }\n\n.verticalLine-right {\n  width: 27.5%;\n  border-right: thin solid #d7d7d7; }\n\n.fonts {\n  display: flex; }\n\n.Calibri {\n  font-family: Calibri !important; }\n\n.page-div {\n  width: 72%;\n  height: 700px;\n  margin: auto;\n  background-color: white; }\n\ninput.plane-number {\n  width: 22% !important;\n  margin-left: 5px; }\n\n.drag-border-plane {\n  border: 5px solid red; }\n\n.textalgin {\n  height: 39px;\n  width: 39px; }\n\n.planelist-plane {\n  width: 60%;\n  height: 13%;\n  margin-left: 13px;\n  background: white;\n  overflow-y: hidden;\n  font-size: 14%;\n  overflow-x: hidden; }\n\n.planelist {\n  position: absolute;\n  width: 14%;\n  height: 74.8%; }\n\n.planesbuttons {\n  height: 20%;\n  width: 20%;\n  margin-top: 5%;\n  margin-left: 14%;\n  margin-bottom: 11%; }\n\n.unselectable {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34426,29 +34426,116 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Editor() {
+    const layoutdrag = (e) => {
+        e.dataTransfer.setData("text", e.currentTarget.id);
+    };
+    const layoutallowDrop = (e) => {
+        e.currentTarget.className = "drag-border-plane";
+        e.preventDefault();
+        e.stopPropagation();
+    };
+    const handleinput = () => {
+        console.log("test");
+    };
+    const reloadplane = (e) => {
+        console.log("fired");
+    };
+    const layoutdrop = (e) => {
+        console.log(e.currentTarget);
+        e.currentTarget.className = "";
+        e.preventDefault();
+        var data = e.dataTransfer.getData("text");
+        // @ts-ignore
+        if (document.getElementById(data).id === "Title_left__Text_left__No_pic") {
+            e.currentTarget.innerHTML =
+                '    <h1 contenteditable="true"id="h1_' +
+                    e.currentTarget.id +
+                    '_Title_left__Text_left__No_pic" OnInput={reloadplane(e)} style="\n' +
+                    "    font-size: 200%;\n" +
+                    "    padding: 2%;\n" +
+                    '">Titel</h1>\n' +
+                    '<h3 contenteditable="true" id="h3_' +
+                    e.currentTarget.id +
+                    '_Title_left__Text_left__No_pic" oninput="handleinput()" style="\n' +
+                    "    margin-left: 2%;\n" +
+                    "    white-space: initial;\n" +
+                    "    word-wrap: break-word;\n" +
+                    '" spellcheck="false" data-gramm="false"><div >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam gravida dolor mauris, at aliquet metus accumsan sed</div><div>&nbsp;Aenean non sem rhoncus, feugiat libero id, pharetra sem. Praesent et odio mattis lacus sollicitudin varius ut non nunc<span style="font-weight: 400; white-space: initial;">.</span></div><div><span style="font-weight: 400; white-space: initial;">&nbsp;Nulla auctor nunc non eros tempor condimentum. Etiam porttitor enim sed neque ullamcorper, eget ullamcorper nisi pellentesque.</span></div><div><span style="font-weight: 400; white-space: initial;">&nbsp;Mauris blandit, sem ut convallis scelerisque, elit metus tincidunt massa,</span></div><div><span style="font-weight: 400; white-space: initial;">&nbsp;id consectetur lectus ipsum at sapien. Etiam nec turpis dui. Donec scelerisque aliquam justo</span></div><div><span style="font-weight: 400; white-space: initial;">, vitae laoreet mi iaculis id. Fusce venenatis dignissim nisl, vitae hendrerit ante lacinia ac.</span></div><div><span style="font-weight: 400; white-space: initial;">&nbsp;Praesent ultrices, urna a finibus iaculis, quam purus aliquam nulla, vel posuere risus lorem eget risus.&nbsp;</span></div><div><span style="font-weight: 400; white-space: initial;">Mauris lobortis mollis bibendum. Mauris risus nulla, iaculis id diam id, finibus varius nibh.</span></div><div><span style="font-weight: 400; white-space: initial;">&nbsp;Aenean ipsum quam, accumsan et dictum eget, elementum ut velit.&nbsp;</span></div><div><span style="font-weight: 400; white-space: initial;">Sed rhoncus velit sed mi ornare, vitae auctor diam auctor. Curabitur quis dictum neque.&nbsp;</span></div><div><span style="font-weight: 400; white-space: initial;">Proin venenatis, odio eget ultricies viverra, erat nisl tincidunt est, at ultrices mauris lorem a nisl.</span></div></h3>';
+        }
+    };
+    const layoutDragend = (e) => {
+        for (var i = 0; i < document.getElementsByClassName("drag-border-plane").length; i++) {
+            document.getElementsByClassName("drag-border-plane")[0].className = "";
+        }
+    };
+    const layoutDragleave = (e) => {
+        for (var i = 0; i < document.getElementsByClassName("drag-border-plane").length; i++) {
+            document.getElementsByClassName("drag-border-plane")[0].className = "";
+        }
+    };
+    function clicked(obj) {
+        // @ts-ignore
+        document.getElementById("layoutbtn").className = "";
+        // @ts-ignore
+        document.getElementById("Homebtn").className = "";
+        // @ts-ignore
+        document.getElementById("Dateibtn").className = "";
+        // @ts-ignore
+        document.getElementById(obj).className = "is-active";
+        if (obj === "layoutbtn") {
+            // @ts-ignore
+            document.getElementById("fonts").style.display = "none";
+            // @ts-ignore
+            document.getElementById("layouts").style.display = "";
+        }
+        else if (obj === "Homebtn") {
+            // @ts-ignore
+            document.getElementById("layouts").style.display = "none";
+            // @ts-ignore
+            document.getElementById("fonts").style.display = "";
+        }
+    }
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("header", null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "tabs is-small tabs" },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null,
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null,
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", null, "Datei")),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", { className: "is-active" },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", null, "Home")),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null,
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", null, "Layout")),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", { id: "Dateibtn" },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", { onClick: () => clicked("Dateibtn") }, "Datei")),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", { className: "is-active", id: "Homebtn" },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", { onClick: () => clicked("Homebtn") }, "Home")),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", { id: "layoutbtn" },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", { onClick: () => clicked("layoutbtn") }, "Layout")),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null,
                         react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", null, "Designideen")))),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "verticalLine-right" },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "fonts" },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "fonts", id: "fonts" },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "control" },
                         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "select" },
                             react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", null,
                                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { className: "Arial" }, "Arial"),
                                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { className: "Calibri" }, "Calibri")))),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { className: "button fontchange" }, "A\u2193"),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { className: "button fontchange " }, "A\u2191")))),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { className: "button fontchange " }, "A\u2191"),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { min: "0", className: "input plane-number", type: "number", id: "plane-number" }),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", { src: "/images/layouts/icons/textalgin_left.png", className: "textalgin" }),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", { src: "/images/layouts/icons/textalgin_center.png", className: "textalgin" }),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", { src: "/images/layouts/icons/textalgin_right.png", className: "textalgin" }),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", { src: "/images/layouts/icons/textalgin_justify.png", className: "textalgin" })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "layouts", id: "layouts", style: { display: "none" } },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("figure", { id: "Title_left__Text_left__No_pic", className: "image is-128x128", draggable: "true", onDragStart: (e) => layoutdrag(e) },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", { src: "images/layouts/Title_left__Text_left__No_pic.png" }))))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "main-div" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "123"))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "planelist" },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", null,
+                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", { src: "/images/layouts/icons/+.png", draggable: "false", className: "textalgin planesbuttons" })),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", null,
+                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", { src: "/images/layouts/icons/-.png", draggable: "false", className: "textalgin planesbuttons" }))),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "planelist-plane1", className: "planelist-plane" })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "page-div", id: "page-div" },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "plane", id: "plane1", onDrop: (e) => layoutdrop(e), onDragOver: (e) => layoutallowDrop(e), style: { height: "100%" }, onDragEnd: (e) => layoutDragend(e), onDragLeave: (e) => layoutDragend(e) }),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "plane", id: "plane2", onDrop: (e) => layoutdrop(e), onDragOver: (e) => layoutallowDrop(e), style: { height: "100%" }, onDragEnd: (e) => layoutDragend(e), onDragLeave: (e) => layoutDragend(e) }))))));
 }
 
 
