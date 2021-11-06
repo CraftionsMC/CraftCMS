@@ -1,0 +1,22 @@
+ function reloadplane(e: React.ChangeEvent) {
+    var reloadedplane = e.currentTarget.id.split("_");
+
+    for (
+      var i = 0;
+      i < // @ts-ignore
+      document.getElementById("page-div").children.length;
+      i++
+    ) {
+      if (
+        // @ts-ignore
+        document.getElementById("page-div").children[i].id ===
+        // @ts-ignore
+        reloadedplane[1].id
+      ) {
+        // @ts-ignore
+        document.getElementById("planelist-plane1") =
+          // @ts-ignore
+          document.getElementById("page-div").children[i].innerHTML;
+      }
+    }
+  }
