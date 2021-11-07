@@ -48,7 +48,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "header {\n  justify-content: space-between;\n  align-items: center;\n  padding: 60px 60px;\n  background: #e9e6e6; }\n\nbody {\n  background-color: #363636;\n  height: auto;\n  width: auto;\n  z-index: auto; }\n\n.main-div {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  background-color: #d7d7d7; }\n\n.page-div {\n  overflow-y: scroll; }\n\n.tabs {\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n.tabs.is-small {\n  font-size: 1rem !important; }\n\n.fontchange {\n  background-color: #fff;\n  border-color: #dbdbdb;\n  border-width: 1px;\n  color: #363636;\n  cursor: pointer;\n  justify-content: center;\n  text-align: center;\n  white-space: nowrap;\n  margin-left: 5px;\n  padding-left: 10px !important;\n  padding-right: 10px !important; }\n\n.verticalLine-left {\n  border-left: thin solid #d7d7d7; }\n\n.verticalLine-right {\n  width: 27.5%;\n  border-right: thin solid #d7d7d7; }\n\n.fonts {\n  display: flex; }\n\n.Calibri {\n  font-family: Calibri !important; }\n\n.page-div {\n  width: 72%;\n  height: 700px;\n  margin: auto;\n  background-color: white; }\n\ninput.plane-number {\n  width: 22% !important;\n  margin-left: 5px; }\n\n.drag-border-plane {\n  border: 5px solid red; }\n\n.textalgin {\n  height: 39px;\n  width: 39px; }\n\n.planelist-plane {\n  width: 60%;\n  height: 13%;\n  margin-left: 13px;\n  background: white;\n  overflow-y: hidden;\n  font-size: 14%;\n  overflow-x: hidden; }\n\n.planelist {\n  position: absolute;\n  width: 14%;\n  height: 74.8%; }\n\n.planesbuttons {\n  height: 20%;\n  width: 20%;\n  margin-top: 5%;\n  margin-left: 14%;\n  margin-bottom: 11%; }\n\n.unselectable {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "header {\n  justify-content: space-between;\n  align-items: center;\n  padding: 60px 60px;\n  background: #e9e6e6; }\n\nbody {\n  background-color: #363636;\n  height: auto;\n  width: auto;\n  z-index: auto; }\n\n.main-div {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  background-color: #d7d7d7; }\n\n.page-div {\n  overflow-y: scroll; }\n\n.page-div {\n  height: 100%; }\n\n.tabs {\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n.tabs.is-small {\n  font-size: 1rem !important; }\n\n.fontchange {\n  background-color: #fff;\n  border-color: #dbdbdb;\n  border-width: 1px;\n  color: #363636;\n  cursor: pointer;\n  justify-content: center;\n  text-align: center;\n  white-space: nowrap;\n  margin-left: 5px;\n  padding-left: 10px !important;\n  padding-right: 10px !important; }\n\n.verticalLine-left {\n  border-left: thin solid #d7d7d7; }\n\n.verticalLine-right {\n  width: 27.5%;\n  border-right: thin solid #d7d7d7; }\n\n.fonts {\n  display: flex; }\n\n.Calibri {\n  font-family: Calibri !important; }\n\n.page-div {\n  width: 72%;\n  height: 700px;\n  margin: auto;\n  background-color: white; }\n\ninput.plane-number {\n  width: 22% !important;\n  margin-left: 5px; }\n\n.drag-border-plane {\n  border: 5px solid red; }\n\n.textalgin {\n  height: 39px;\n  width: 39px; }\n\n.planelist-plane {\n  width: 60%;\n  height: 13%;\n  margin-left: 13px;\n  background: white;\n  overflow-y: hidden;\n  font-size: 14%;\n  overflow-x: hidden;\n  margin-top: 15%; }\n\n.planelist {\n  position: absolute;\n  width: 14%;\n  height: 74.8%; }\n\n.planesbuttons {\n  height: 21px;\n  width: 21px;\n  margin-top: 15px;\n  margin-left: 16px;\n  margin-bottom: 15px; }\n\n.unselectable {\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34473,7 +34473,7 @@ function Editor() {
             document.getElementsByClassName("drag-border-plane")[0].className = "";
         }
     };
-    function clicked(obj) {
+    function tabsclicked(obj) {
         // @ts-ignore
         document.getElementById("layoutbtn").className = "";
         // @ts-ignore
@@ -34495,16 +34495,123 @@ function Editor() {
             document.getElementById("fonts").style.display = "";
         }
     }
+    const addplane = () => {
+        var pagediv = document.getElementById("page-div");
+        var newdiv = document.createElement("div");
+        newdiv.className = "plane";
+        // @ts-ignore
+        newdiv.id =
+            "plane%" +
+                (parseInt(
+                // @ts-ignore
+                pagediv.children[pagediv.children.length - 1].id.split("%")[1]) + 1).toString();
+        // @ts-ignore
+        newdiv.ondrop = (e) => layoutdrop(e);
+        // @ts-ignore
+        newdiv.ondragover = (e) => layoutallowDrop(e);
+        // @ts-ignore
+        newdiv.ondragend = (e) => onDragEnd(e);
+        // @ts-ignore
+        newdiv.ondragend = (e) => layoutDragend(e);
+        // @ts-ignore
+        newdiv.ondragleave = (e) => layoutDragend(e);
+        // @ts-ignore
+        newdiv.style = "height: 100%";
+        // @ts-ignore
+        pagediv.appendChild(newdiv);
+        var planelist = document.getElementById("planelist");
+        var newplanelistplane = document.createElement("div");
+        newplanelistplane.className = "planelist-plane";
+        // @ts-ignore
+        newplanelistplane.id =
+            "planelist-plane%" +
+                (parseInt(
+                // @ts-ignore
+                planelist.children[planelist.children.length - 1].id.split("%")[1]) + 1).toString();
+        // @ts-ignore
+        planelist.appendChild(newplanelistplane);
+    };
+    document.addEventListener("click", function (evt) {
+        var targetEl = evt.target; // clicked element
+        var planelist = document.getElementById("planelist");
+        //console.log("test");
+        do {
+            // @ts-ignore
+            for (var i = 1; i < planelist.children.length; i++) {
+                // @ts-ignore
+                if (targetEl == planelist.children[i]) {
+                    // @ts-ignore
+                    if (
+                    // @ts-ignore
+                    planelist.children[i].style.border ===
+                        "2px solid rgb(165, 162, 250)") {
+                        // @ts-ignore
+                        planelist.children[i].style = "";
+                        return;
+                    }
+                    // @ts-ignore
+                    planelist.children[i].style = "border: 2px solid rgb(165, 162, 250)";
+                    return;
+                }
+            }
+            // @ts-ignore
+            // Go up the DOM
+            // @ts-ignore
+            targetEl = targetEl.parentNode;
+        } while (targetEl);
+        // @ts-ignore
+        for (var i = 1; i < planelist.children.length; i++) {
+            // @ts-ignore
+            planelist.children[i].style = "";
+        }
+        // This is a click outside.
+    });
+    const removeplane = () => {
+        var pagediv = document.getElementById("page-div");
+        var planelist = document.getElementById("planelist");
+        var list = [];
+        // @ts-ignore
+        for (var i = 1; i < planelist.children.length; i++) {
+            // @ts-ignore
+            if (
+            // @ts-ignore
+            planelist.children[i].style.border === "2px solid rgb(165, 162, 250)") {
+                // @ts-ignore
+                list.push(planelist.children[i]);
+            }
+        }
+        // @ts-ignore
+        for (var i = 0; i < list.length; i++) {
+            //console.log(list[i].id);
+            // @ts-ignore
+            if (planelist.children.length > 2) {
+                console.log(list[i].id.split("%")[1]);
+                // @ts-ignore
+                for (var j = 0; j < pagediv.children.length; j++) {
+                    // @ts-ignore
+                    if (
+                    // @ts-ignore
+                    pagediv.children[j].id ===
+                        "plane%" + list[i].id.split("%")[1].toString()) {
+                        // @ts-ignore
+                        pagediv.children[j].remove();
+                    }
+                }
+                list[i].remove();
+            }
+        }
+        list = [];
+    };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("header", null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "tabs is-small tabs" },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null,
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", { id: "Dateibtn" },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", { onClick: () => clicked("Dateibtn") }, "Datei")),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", { onClick: () => tabsclicked("Dateibtn") }, "Datei")),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", { className: "is-active", id: "Homebtn" },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", { onClick: () => clicked("Homebtn") }, "Home")),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", { onClick: () => tabsclicked("Homebtn") }, "Home")),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", { id: "layoutbtn" },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", { onClick: () => clicked("layoutbtn") }, "Layout")),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", { onClick: () => tabsclicked("layoutbtn") }, "Layout")),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", null,
                         react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", null, "Designideen")))),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "verticalLine-right" },
@@ -34526,16 +34633,15 @@ function Editor() {
                         react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", { src: "images/layouts/Title_left__Text_left__No_pic.png" }))))),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "main-div" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "planelist" },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "planelist", id: "planelist" },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
                         react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", null,
-                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", { src: "/images/layouts/icons/+.png", draggable: "false", className: "textalgin planesbuttons" })),
+                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", { src: "/images/layouts/icons/+.png", draggable: "false", className: "textalgin planesbuttons", onClick: () => addplane() })),
                         react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", null,
-                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", { src: "/images/layouts/icons/-.png", draggable: "false", className: "textalgin planesbuttons" }))),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "planelist-plane1", className: "planelist-plane" })),
+                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", { src: "/images/layouts/icons/-.png", draggable: "false", className: "textalgin planesbuttons", onClick: () => removeplane() }))),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "planelist-plane%1", className: "planelist-plane" })),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "page-div", id: "page-div" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "plane", id: "plane1", onDrop: (e) => layoutdrop(e), onDragOver: (e) => layoutallowDrop(e), style: { height: "100%" }, onDragEnd: (e) => layoutDragend(e), onDragLeave: (e) => layoutDragend(e) }),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "plane", id: "plane2", onDrop: (e) => layoutdrop(e), onDragOver: (e) => layoutallowDrop(e), style: { height: "100%" }, onDragEnd: (e) => layoutDragend(e), onDragLeave: (e) => layoutDragend(e) }))))));
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "plane", id: "plane%1", onDrop: (e) => layoutdrop(e), onDragOver: (e) => layoutallowDrop(e), style: { height: "100%" }, onDragEnd: (e) => layoutDragend(e), onDragLeave: (e) => layoutDragend(e) }))))));
 }
 
 

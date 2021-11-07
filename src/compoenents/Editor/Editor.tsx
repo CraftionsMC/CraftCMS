@@ -3,6 +3,8 @@ import "./styles/main.scss";
 import "bulma/css/bulma.min.css";
 import Draggable from "react-draggable";
 import { ChangeEventHandler } from "react";
+import * as Console from "console";
+import { stringify } from "uuid";
 export default function Editor() {
   const layoutdrag = (e: React.DragEvent<HTMLElement>) => {
     e.dataTransfer.setData("text", e.currentTarget.id);
@@ -66,7 +68,7 @@ export default function Editor() {
     }
   };
 
-  function clicked(obj: string) {
+  function tabsclicked(obj: string) {
     // @ts-ignore
     document.getElementById("layoutbtn").className = "";
     // @ts-ignore
@@ -89,19 +91,146 @@ export default function Editor() {
     }
   }
 
+  const addplane = () => {
+    var pagediv = document.getElementById("page-div");
+    var newdiv = document.createElement("div");
+    newdiv.className = "plane";
+
+    // @ts-ignore
+    newdiv.id =
+      "plane%" +
+      (
+        parseInt(
+          // @ts-ignore
+
+          pagediv.children[pagediv.children.length - 1].id.split("%")[1]
+        ) + 1
+      ).toString();
+
+    // @ts-ignore
+    newdiv.ondrop = (e: React.DragEvent<HTMLDivElement>) => layoutdrop(e);
+    // @ts-ignore
+    newdiv.ondragover = (e: React.DragEvent<HTMLDivElement>) =>
+      layoutallowDrop(e);
+    // @ts-ignore
+    newdiv.ondragend = (e: React.DragEvent<HTMLDivElement>) => onDragEnd(e);
+    // @ts-ignore
+    newdiv.ondragend = (e: React.DragEvent<HTMLDivElement>) => layoutDragend(e);
+    // @ts-ignore
+    newdiv.ondragleave = (e: React.DragEvent<HTMLDivElement>) =>
+      layoutDragend(e);
+    // @ts-ignore
+    newdiv.style = "height: 100%";
+    // @ts-ignore
+    pagediv.appendChild(newdiv);
+    var planelist = document.getElementById("planelist");
+    var newplanelistplane = document.createElement("div");
+    newplanelistplane.className = "planelist-plane";
+    // @ts-ignore
+    newplanelistplane.id =
+      "planelist-plane%" +
+      (
+        parseInt(
+          // @ts-ignore
+          planelist.children[planelist.children.length - 1].id.split("%")[1]
+        ) + 1
+      ).toString();
+
+    // @ts-ignore
+    planelist.appendChild(newplanelistplane);
+  };
+  document.addEventListener("click", function (evt) {
+    var targetEl = evt.target; // clicked element
+    var planelist = document.getElementById("planelist");
+    //console.log("test");
+    do {
+      // @ts-ignore
+      for (var i = 1; i < planelist.children.length; i++) {
+        // @ts-ignore
+        if (targetEl == planelist.children[i]) {
+          // @ts-ignore
+
+          if (
+            // @ts-ignore
+
+            planelist.children[i].style.border ===
+            "2px solid rgb(165, 162, 250)"
+          ) {
+            // @ts-ignore
+            planelist.children[i].style = "";
+            return;
+          }
+          // @ts-ignore
+          planelist.children[i].style = "border: 2px solid rgb(165, 162, 250)";
+          return;
+        }
+      }
+      // @ts-ignore
+
+      // Go up the DOM
+      // @ts-ignore
+      targetEl = targetEl.parentNode;
+    } while (targetEl);
+    // @ts-ignore
+    for (var i = 1; i < planelist.children.length; i++) {
+      // @ts-ignore
+      planelist.children[i].style = "";
+    }
+    // This is a click outside.
+  });
+  const removeplane = () => {
+    var pagediv = document.getElementById("page-div");
+    var planelist = document.getElementById("planelist");
+    var list = [];
+    // @ts-ignore
+    for (var i = 1; i < planelist.children.length; i++) {
+      // @ts-ignore
+      if (
+        // @ts-ignore
+        planelist.children[i].style.border === "2px solid rgb(165, 162, 250)"
+      ) {
+        // @ts-ignore
+        list.push(planelist.children[i]);
+      }
+    }
+    // @ts-ignore
+    for (var i = 0; i < list.length; i++) {
+      //console.log(list[i].id);
+      // @ts-ignore
+      if (planelist.children.length > 2) {
+        console.log(list[i].id.split("%")[1]);
+        // @ts-ignore
+        for (var j = 0; j < pagediv.children.length; j++) {
+          // @ts-ignore
+          if (
+            // @ts-ignore
+            pagediv.children[j].id ===
+            "plane%" + list[i].id.split("%")[1].toString()
+          ) {
+            // @ts-ignore
+            pagediv.children[j].remove();
+          }
+        }
+
+        list[i].remove();
+      }
+    }
+    list = [];
+  };
+
   return (
     <>
       <header>
         <div className="tabs is-small tabs">
           <ul>
             <li id="Dateibtn">
-              <a onClick={() => clicked("Dateibtn")}>Datei</a>
+              <a onClick={() => tabsclicked("Dateibtn")}>Datei</a>
             </li>
             <li className="is-active" id="Homebtn">
-              <a onClick={() => clicked("Homebtn")}>Home</a>
+              <a onClick={() => tabsclicked("Homebtn")}>Home</a>
             </li>
             <li id="layoutbtn">
-              <a onClick={() => clicked("layoutbtn")}>Layout</a>
+              <a onClick={() => tabsclicked("layoutbtn")}>Layout</a>
             </li>
             <li>
               <a>Designideen</a>
@@ -159,13 +288,14 @@ export default function Editor() {
 
       <div className="main-div">
         <div>
-          <div className="planelist">
+          <div className="planelist" id="planelist">
             <div>
               <a>
                 <img
                   src="/images/layouts/icons/+.png"
                   draggable="false"
                   className="textalgin planesbuttons"
+                  onClick={() => addplane()}
                 />
               </a>
               <a>
@@ -173,24 +303,16 @@ export default function Editor() {
                   src="/images/layouts/icons/-.png"
                   draggable="false"
                   className="textalgin planesbuttons"
+                  onClick={() => removeplane()}
                 />
               </a>
             </div>
-            <div id="planelist-plane1" className="planelist-plane"></div>
+            <div id="planelist-plane%1" className="planelist-plane"></div>
           </div>
           <div className="page-div" id="page-div">
             <div
               className="plane"
-              id="plane1"
-              onDrop={(e) => layoutdrop(e)}
-              onDragOver={(e) => layoutallowDrop(e)}
-              style={{ height: "100%" }}
-              onDragEnd={(e) => layoutDragend(e)}
-              onDragLeave={(e) => layoutDragend(e)}
-            ></div>
-            <div
-              className="plane"
-              id="plane2"
+              id="plane%1"
               onDrop={(e) => layoutdrop(e)}
               onDragOver={(e) => layoutallowDrop(e)}
               style={{ height: "100%" }}
